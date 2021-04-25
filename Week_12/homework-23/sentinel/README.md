@@ -42,7 +42,11 @@ docker compose up
 
 2. Master is currently unable to PSYNC but should be in the future: -NOMASTERLINK Can't SYNC while not connected with my master?
 
-3. 出现双主?slave redis1 的info信息中为什么master的ip为啥是192.168.3.7
+3. slave redis1 的info信息中为什么master的ip为啥是192.168.3.7
+   
+容器重启后重新分配了ip，原来的redis3 ip变为了192.168.3.7
+
+4. 出现双主?
 ```log
 root@d9b763258415:/data# redis-cli -h redis1 -p 6379
 redis1:6379> info replication
