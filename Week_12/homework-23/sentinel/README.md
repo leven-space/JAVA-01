@@ -105,3 +105,5 @@ repl_backlog_histlen:87413
 redis3:6379> 
 
 ```
+
+可能是和docker有关系，第一次启动不会有问题，但是当第二次启动时，感觉sentinel文件没有刷新，导致出现了双主。
