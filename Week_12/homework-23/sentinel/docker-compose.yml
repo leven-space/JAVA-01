@@ -1,0 +1,91 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  redis1:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis-1.conf
+    ports:
+      - "6379:6379"
+    volumes:
+     - "/Users/leven.chen/Workspace/Server/redis/redis6/sentinel:/usr/local/etc/redis"
+     - "redis1data:/data"
+    networks:
+     redis_sentinel_net:
+      ipv4_address: 192.168.3.1
+
+  redis2:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis-2.conf
+    depends_on:
+      - "redis1"
+    ports:
+      - "6380:6379"
+    volumes:
+     - "/Users/leven.chen/Workspace/Server/redis/redis6/sentinel:/usr/local/etc/redis"
+     - "redis2data:/data"
+    networks:
+     redis_sentinel_net:
+      ipv4_address: 192.168.3.2
+
+  redis3:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis-3.conf
+    depends_on:
+      - "redis2"
+    ports:
+      - "6381:6379"
+    volumes:
+     - "/Users/leven.chen/Workspace/Server/redis/redis6/sentinel:/usr/local/etc/redis"
+     - "redis3data:/data"
+    networks:
+     redis_sentinel_net:
+      ipv4_address: 192.168.3.3
+
+  redis-sentinel1:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis-sentinel-1.conf --sentinel
+    depends_on:
+      - "redis1"
+    ports:
+      - "26379:26379"
+    volumes:
+      - "/Users/leven.chen/Workspace/Server/redis/redis6/sentinel:/usr/local/etc/redis"
+    networks:
+     redis_sentinel_net:
+      ipv4_address: 192.168.3.4
+
+  redis-sentinel2:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis-sentinel-2.conf --sentinel
+    depends_on:
+      - "redis1"
+    ports:
+      - "26380:26379"
+    volumes:
+      - "/Users/leven.chen/Workspace/Server/redis/redis6/sentinel:/usr/local/etc/redis"
+    networks:
+     redis_sentinel_net:
+      ipv4_address: 192.168.3.5
+
+  redis-sentinel3:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis-sentinel-3.conf --sentinel
+    depends_on:
+      - "redis1"
+    ports:
+      - "26381:26379"
+    volumes:
+      - "/Users/leven.chen/Workspace/Server/redis/redis6/sentinel:/usr/local/etc/redis"
+    networks:
+     redis_sentinel_net:
+      ipv4_address: 192.168.3.6
+      
+volumes:
+   redis1data:
+   redis2data:
+   redis3data:
+
+networks:
+  redis_sentinel_net:
+    ipam:
+      config:
+        - subnet: "192.168.3.0/24"

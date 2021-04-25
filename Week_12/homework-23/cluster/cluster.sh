@@ -1,0 +1,1 @@
+docker run grokzen/redis-cluster:latest
