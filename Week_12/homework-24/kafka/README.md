@@ -4,6 +4,8 @@
 > 详见DockerFile
 使用一个打印helloworld的shell脚本来作为main进程。
 
+docker build -t kafka .
+
 
 ### 2. 编写docker-compose
 > 详见docker-compose.yml

@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+
+  activemq1:
+    image: my-activemq
+    hostname: activemq1
+
+  activemq2:
+    image: my-activemq
+    hostname: activemq2
+    
+  activemq3:
+    image: my-activemq
+    hostname: activemq3
